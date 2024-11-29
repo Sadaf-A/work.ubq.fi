@@ -390,7 +390,10 @@
     max-height: 48px;
   }
   #authenticated > img {
-    height: 48px;
+    border-radius: 50%;
+    padding: 4px 0;
+    height: 40px;
+    margin-left: 4px;
   }
   .toolbar[data-authenticated="true"] > #github-login-button {
     display: none;
@@ -426,7 +429,7 @@
       display: none;
     }
   }
-  @media screen and (max-width: 1139px) {
+  @media screen and (max-width: 1350px) {
     .partner {
       margin-top: 0;
     }
