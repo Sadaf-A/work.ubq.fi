@@ -80,35 +80,35 @@ export class SortingManager {
       const filterText = textBox.value;
       // Reset sorting buttons when there is text in search menu
       if (filterText) {
-      this._resetSortButtons();
+        this._resetSortButtons();
       }
       // Update the URL with the search parameter
       const newURL = new URL(window.location.href);
       if (filterText) {
-      newURL.searchParams.set("search", filterText);
+        newURL.searchParams.set("search", filterText);
       } else {
-      newURL.searchParams.delete("search");
+        newURL.searchParams.delete("search");
       }
       window.history.replaceState({}, "", newURL.toString());
       try {
-      void searchDisplayGitHubIssues({
-        searchText: filterText,
-      });
+        void searchDisplayGitHubIssues({
+          searchText: filterText,
+        });
       } catch (error) {
-      renderErrorInModal(error as Error);
+        renderErrorInModal(error as Error);
       }
     });
 
     // if the user changes between proposal view and directory view, update the search results
     if (proposalViewToggle) {
       proposalViewToggle.addEventListener("change", () => {
-      try {
-        void searchDisplayGitHubIssues({
-        searchText: textBox.value,
-        });
-      } catch (error) {
-        renderErrorInModal(error as Error);
-      }
+        try {
+          void searchDisplayGitHubIssues({
+            searchText: textBox.value,
+          });
+        } catch (error) {
+          renderErrorInModal(error as Error);
+        }
       });
     }
 
