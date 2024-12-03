@@ -182,7 +182,7 @@ export async function viewIssueDetails(full: GitHubIssue) {
 }
 
 // Listen for changes in view toggle and update the URL accordingly
-const proposalViewToggle = document.getElementById("view-toggle") as HTMLInputElement;
+export const proposalViewToggle = document.getElementById("view-toggle") as HTMLInputElement;
 proposalViewToggle.addEventListener("change", () => {
   const newURL = new URL(window.location.href);
   if (proposalViewToggle.checked) {
