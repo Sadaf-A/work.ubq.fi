@@ -5,7 +5,6 @@ import { taskManager } from "../home";
 import { renderErrorInModal } from "./display-popup-modal";
 import { closeModal, modal, modalBodyInner, bottomBar, titleAnchor, titleHeader, bottomBarClearLabels } from "./render-preview-modal";
 import { setupKeyboardNavigation } from "./setup-keyboard-navigation";
-import { isProposalOnlyViewer } from "../fetch-github/fetch-and-display-previews";
 import { waitForElement } from "./utils";
 
 export function renderGitHubIssues(tasks: GitHubIssue[], skipAnimation: boolean) {
@@ -182,14 +181,22 @@ export async function viewIssueDetails(full: GitHubIssue) {
   updateUrlWithIssueId(full.id);
 }
 
+// Listen for changes in view toggle and update the URL accordingly
+const proposalViewToggle = document.getElementById("view-toggle") as HTMLInputElement;
+proposalViewToggle.addEventListener("change", () => {
+  const newURL = new URL(window.location.href);
+  if (proposalViewToggle.checked) {
+    newURL.searchParams.set("proposal", "true");
+  } else {
+    newURL.searchParams.delete("proposal");
+  }
+  window.history.replaceState({}, "", newURL.toString());
+});
+
 // Adds issue ID to url in format (i.e http://localhost:8080/?issue=2559612103)
 function updateUrlWithIssueId(issueID: number) {
   const newURL = new URL(window.location.href);
   newURL.searchParams.set("issue", String(issueID));
-
-  if (isProposalOnlyViewer) {
-    newURL.searchParams.set("proposal", "true");
-  }
 
   // Set issue in URL
   window.history.replaceState({ issueID }, "", newURL.toString());
@@ -212,7 +219,6 @@ export function loadIssueFromUrl() {
   if (!issue) {
     const newURL = new URL(window.location.href);
     newURL.searchParams.delete("issue");
-    newURL.searchParams.delete("proposal");
     window.history.pushState({}, "", newURL.toString());
     return;
   }
