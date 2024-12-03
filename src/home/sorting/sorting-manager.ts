@@ -1,5 +1,6 @@
 import { displayGitHubIssues, searchDisplayGitHubIssues } from "../fetch-github/fetch-and-display-previews";
 import { renderErrorInModal } from "../rendering/display-popup-modal";
+import { proposalViewToggle } from "../rendering/render-github-issues";
 import { Sorting } from "./generate-sorting-buttons";
 
 export class SortingManager {
@@ -74,6 +75,7 @@ export class SortingManager {
     });
     observer.observe(issuesContainer, { childList: true });
 
+    // if the user types in the search box, update the URL and filter the issues
     textBox.addEventListener("input", () => {
       const filterText = textBox.value;
       // Reset sorting buttons when there is text in search menu
@@ -96,6 +98,19 @@ export class SortingManager {
         renderErrorInModal(error as Error);
       }
     });
+
+    // if the user changes between proposal view and directory view, update the search results
+    if (proposalViewToggle) {
+      proposalViewToggle.addEventListener("change", () => {
+        try {
+          void searchDisplayGitHubIssues({
+            searchText: textBox.value,
+          });
+        } catch (error) {
+          renderErrorInModal(error as Error);
+        }
+      });
+    }
 
     return textBox;
   }
