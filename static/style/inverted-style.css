@@ -363,7 +363,7 @@
     width: 100%;
     height: 48px;
     top: 0;
-    padding: 0 5px;
+    padding: 0 8px;
     backdrop-filter: blur(8px);
     display: flex;
     border-bottom: 1px solid #7f7f7f20;
@@ -375,7 +375,7 @@
   }
   #authentication {
     position: absolute;
-    right: 5px;
+    right:8px;
     cursor: pointer;
     vertical-align: middle;
     flex: 0 0 auto;
@@ -795,9 +795,6 @@
   #view-toggle {
     flex: 0 0 auto;
     appearance: none;
-  }
-  label[for="view-toggle"] {
-    margin-left: 8px;
   }
   #bottom-right {
     position: fixed;
