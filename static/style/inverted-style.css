@@ -1,4 +1,4 @@
-@media (orientation: portrait) or (max-width: 800px) {
+@media (orientation: portrait) or (max-width: 1005px) {
   #filters {
     display: none;
   }
@@ -432,7 +432,7 @@
       display: none;
     }
   }
-  @media screen and (max-width: 1350px) {
+  @media screen and (max-width: 1361px) {
     .partner {
       margin-top: 0;
     }
